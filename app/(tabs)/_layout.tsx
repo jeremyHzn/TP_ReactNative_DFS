@@ -4,16 +4,23 @@ import React from 'react';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
-
+import Entypo from '@expo/vector-icons/Entypo';
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
+
+    <Tabs>
+        <Tabs.Screen
+        name="test"
+        options={{
+          title: 'test',
+          tabBarIcon: ({ color, focused }) => (
+            <Entypo name="lab-flask" size={24} color="black" />
+          ),
+          tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint as string,
+        }}
+      />      
       <Tabs.Screen
         name="index"
         options={{
@@ -21,17 +28,9 @@ export default function TabLayout() {
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
           ),
+          tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint as string,
         }}
       />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
-          ),
-        }}
-      />
-    </Tabs>
+      </Tabs>
   );
 }
